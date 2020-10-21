@@ -6,31 +6,43 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <title>Chess AI</title>
     <link rel="stylesheet" href="js/chessboardjs/css/chessboard-0.3.0.css" />
-    <link rel="stylesheet" href="output.css" />
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <div class="main h-screen flex flex-col items-center justify-center">
+    <div class="main">
       <div id="board" class="board"></div>
       <div class="info">
-        Search depth:
-        <select id="search-depth">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3" selected>3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+        <div>
+          Profundidade da pesquisa:
+          <select id="search-depth">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
 
-        <br />
-        <span>Positions evaluated: <span id="position-count"></span></span>
-        <br />
-        <span>Time: <span id="time"></span></span>
-        <br />
-        <span>Positions/s: <span id="positions-per-s"></span> </span>
-        <br />
-        <br />
-        <div id="move-history" class="move-history"></div>
+        <div>
+          Posições avaliadas: <span id="position-count"></span>
+          <span>Tempo: <span id="time"></span></span>
+        </div>
+        <div>Posições/s: <span id="positions-per-s"></span></div>
+        <div>
+          <h3>Movimentos do jogo</h3>
+          <div id="move-history" class="move-history">
+            <div class="moves">
+              <div class="move">
+                <p>white</p>
+                <div id="move-white"></div>
+              </div>
+              <div class="move">
+                <p>black</p>
+                <div id="move-black"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="js/jquery/jquery-3.2.1.min.js"></script>

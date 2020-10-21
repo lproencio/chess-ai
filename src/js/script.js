@@ -219,18 +219,18 @@ var getBestMove = function (game) {
 };
 
 var renderMoveHistory = function (moves) {
-  var historyElement = $("#move-history").empty();
-  historyElement.empty();
-  for (var i = 0; i < moves.length; i = i + 2) {
-    historyElement.append(
-      "<span>" +
-        moves[i] +
-        " " +
-        (moves[i + 1] ? moves[i + 1] : " ") +
-        "</span><br>"
-    );
-  }
-  historyElement.scrollTop(historyElement[0].scrollHeight);
+  var whiteMove = $("#move-white").empty();
+  var blackMove = $("#move-black").empty();
+  whiteMove.empty();
+  blackMove.empty();
+
+  moves.map((move, i) => {
+    if (i % 2 == 0) {
+      whiteMove.append(`<span>${move}</span>`);
+    } else {
+      blackMove.append(`<span>${move}</span>`);
+    }
+  });
 };
 
 var onDrop = function (source, target) {
