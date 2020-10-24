@@ -3,6 +3,7 @@ var board,
 
 /*The "AI" part starts here */
 
+// busca minimax melhorada = alpha-beta
 var minimaxRoot = function (depth, game, isMaximisingPlayer) {
   var newGameMoves = game.ugly_moves();
   var bestMove = -9999;
@@ -21,6 +22,7 @@ var minimaxRoot = function (depth, game, isMaximisingPlayer) {
   return bestMoveFound;
 };
 
+// busca recursiva minimax
 var minimax = function (depth, game, alpha, beta, isMaximisingPlayer) {
   positionCount++;
   if (depth === 0) {
@@ -61,6 +63,9 @@ var minimax = function (depth, game, alpha, beta, isMaximisingPlayer) {
     return bestMove;
   }
 };
+
+// init: avaliação inicial
+//  processo de movimento inicial avaliando a melhor posição.
 
 var evaluateBoard = function (board) {
   var totalEvaluation = 0;
@@ -175,6 +180,8 @@ var getPieceValue = function (piece, x, y) {
   return piece.color === "w" ? absoluteValue : -absoluteValue;
 };
 
+// end: avaliação inicial
+
 /* board visualization and games state handling */
 
 var onDragStart = function (source, piece, position, orientation) {
@@ -187,6 +194,7 @@ var onDragStart = function (source, piece, position, orientation) {
   }
 };
 
+// avaliação do final do jogo
 var makeBestMove = function () {
   var bestMove = getBestMove(game);
   game.ugly_move(bestMove);
@@ -204,8 +212,10 @@ var getBestMove = function (game) {
   }
 
   positionCount = 0;
+  // busca o valor de busca
   var depth = parseInt($("#search-depth").find(":selected").text());
 
+  // determina o melhor movimento
   var d = new Date().getTime();
   var bestMove = minimaxRoot(depth, game, true);
   var d2 = new Date().getTime();
@@ -218,6 +228,7 @@ var getBestMove = function (game) {
   return bestMove;
 };
 
+// mostra os movimentos do jogador e da maquina
 var renderMoveHistory = function (moves) {
   var whiteMove = $("#move-white").empty();
   var blackMove = $("#move-black").empty();
@@ -233,6 +244,7 @@ var renderMoveHistory = function (moves) {
   });
 };
 
+// mudança de posições
 var onDrop = function (source, target) {
   var move = game.move({
     from: source,
@@ -249,10 +261,12 @@ var onDrop = function (source, target) {
   window.setTimeout(makeBestMove, 250);
 };
 
+//
 var onSnapEnd = function () {
   board.position(game.fen());
 };
 
+// efeito sobre as posições
 var onMouseoverSquare = function (square, piece) {
   var moves = game.moves({
     square: square,
@@ -268,14 +282,17 @@ var onMouseoverSquare = function (square, piece) {
   }
 };
 
+//
 var onMouseoutSquare = function (square, piece) {
   removeGreySquares();
 };
 
+//
 var removeGreySquares = function () {
   $("#board .square-55d63").css("background", "");
 };
 
+//
 var greySquare = function (square) {
   var squareEl = $("#board .square-" + square);
 
@@ -287,6 +304,7 @@ var greySquare = function (square) {
   squareEl.css("background", background);
 };
 
+// configurações da criação de jogo
 var cfg = {
   draggable: true,
   position: "start",
